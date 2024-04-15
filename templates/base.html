@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Made With Love</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">
+           <img src="{% static 'images/Untitled.png' %}">
+        </a>
+
+            <form class="searchbar" method="post">
+                {{ search_form }}
+                {% csrf_token %}
+                <button>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+        <ul role="list">
+            {% if not user.is_authenticated %}
+            <li>
+                <a class="navigation-list" href="{% url 'register' %}"> Registration</a>
+            </li>
+            <li>
+                <a class="navigation-list" href="{% url 'login' %}"> Login </a>
+            </li>
+                {% else %}
+                <li>
+                    <a class="link-button" href="{% url 'create ad' %}">
+                        Create new ad
+                    </a>
+                </li>
+                <li>
+                <a class="navigation-list" href="{% url 'profile details' request.user.id %}"> Profile </a>
+            </li>
+            <li>
+                <a class="navigation-list" href="{% url 'logout' %}"> Logout </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% block content %}
+{% endblock content %}
+</body>
+</html>

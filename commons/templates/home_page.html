@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for ad in object_list %}
+    <div class="card-box">
+    <img src="{{ ad.ads_image.url }}" class="card-image">
+    <h3 class="card-title">
+        {{ ad.product_name }}
+    </h3>
+        <p class="card-prize">
+            {{ ad.price }} lv
+        </p>
+    <p class="card-description">
+        {{ ad.description }}
+    </p>
+    <p class="card-production">
+        Be ready after {{ ad.time_for_production_in_days }} days.
+    </p>
+        <a href="{% url 'ad details' ad.id %}">
+           See details
+        </a>
+    <a>
+        <i class="fa-solid fa-truck-fast"></i>
+    </a>
+
+
+
+    </div>
+
+{% empty %}
+        <p> No ads yet!</p>
+        <div>
+            <a class="link-button" href="{% url 'create ad' %}">
+                Create your ad
+            </a>
+        </div>
+
+        <p>
+        {{ admodel_list }}
+        </p>
+
+{% endfor %}
+{% endblock content %}
